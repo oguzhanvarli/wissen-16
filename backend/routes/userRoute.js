@@ -1,6 +1,7 @@
 const express = require("express")
 const User = require("../models/userModel")
 const jwt = require("jsonwebtoken")
+const tokenControl = require("../middleware/auth")
 const userRouter = express.Router()
 
 userRouter.post("/register", async(req, res) => {
@@ -41,6 +42,15 @@ userRouter.post("/login", async(req, res) => {
      access_token : access_token
     })
 
+  } catch (error) {
+    res.status(400).send({status: false, message: error.message})
+  }
+})
+
+userRouter.get("/getAll", tokenControl, async(req,res) => {
+  try {
+    const users = await User.find({})
+    res.status(200).send({status: true, message: "All Users", users: users})
   } catch (error) {
     res.status(400).send({status: false, message: error.message})
   }

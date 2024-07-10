@@ -1,5 +1,6 @@
 const express = require("express")
 const mongoose = require("mongoose")
+const cors = require("cors")
 
 const Product = require("./models/productModel")
 const productRouter = require("./routes/productRoute")
@@ -10,6 +11,10 @@ require("dotenv").config()
 
 const app = express()
 app.use(express.json())
+
+app.use(cors({
+  origin: "*"
+}))
 
 mongoose.connect("mongodb+srv://oguzhnvarli:oguzhnvarli@cluster0.abrnlib.mongodb.net/wissen-16?retryWrites=true&w=majority&appName=Cluster0")
 .then(() => console.log("MongoDb Connected"))

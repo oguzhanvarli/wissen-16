@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
+import ProductComponent from '../components/ProductComponent'
 
 function Home() {
   //NORMAL VALUE TANIMLAMA EKRANDA GÖSTERİLMEYECEĞİ İÇİN STATE KULLANDIM
@@ -32,11 +33,11 @@ function Home() {
 
 
   return (
-    <div>
+    <div className='grid grid-cols-4 gap-5'>
       {/* <button onClick={fetchData}>Get Data</button> */}
       {
         data.map((product, index) => (
-          <h1 key={index}>{product.name}</h1>
+          <ProductComponent product={product} key={index} />
         ))
       }
   

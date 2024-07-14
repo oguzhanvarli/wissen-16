@@ -13,6 +13,7 @@ userRouter.post("/register", async(req, res) => {
     let user = await User.create(req.body)
     res.status(200).send({status: true, message: "User Created", user: user})
   } catch (error) {
+    // console.log(error)
     res.status(400).send({status: false, message: error.message})
   }
 })

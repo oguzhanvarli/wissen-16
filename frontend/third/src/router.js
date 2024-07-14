@@ -4,6 +4,7 @@ import ProductDetail from "./pages/ProductDetail";
 import NotFound404 from "./pages/NotFound404";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import ForgotPassword from "./pages/ForgotPassword";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register/>
+  },
+  {
+    path:"/forgot-password",
+    element: <ForgotPassword/>
   },
   {
     path: "/product-detail",

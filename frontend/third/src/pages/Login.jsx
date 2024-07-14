@@ -4,12 +4,14 @@ import SendIcon from "@mui/icons-material/Send"
 import axios from 'axios'
 import { Formik } from 'formik'
 import * as Yup from "yup"
+import bgImage from "../assets/images/login-bg.jpg"
+import { Link } from 'react-router-dom'
 
 const loginSchema = Yup.object().shape({
   username: Yup.string().required("Username is required!")
-  .min(3,"Username is too short!").max(15, "Username is too long!"),
+    .min(3, "Username is too short!").max(15, "Username is too long!"),
   password: Yup.string().required("Password is required!")
-  .min(4, "Password is too short!")
+    .min(4, "Password is too short!")
 })
 
 function Login() {
@@ -24,14 +26,16 @@ function Login() {
 
 
   return (
-    <div className="flex flex-col justify-center items-center h-[100vh]">
+    <div
+      style={{backgroundImage: `url(${bgImage})`, backgroundSize: "cover"}}
+      className="flex flex-col justify-center items-center h-[100vh]">
       <Formik
         initialValues={{ username: "", password: "" }}
         onSubmit={(values) => handleLogin(values)}
         validationSchema={loginSchema}
       >
         {({ values, handleChange, handleBlur, handleSubmit, errors, touched }) => (
-          <>
+          <div className='flex flex-col w-1/3 p-10 rounded-lg shadow-2xl bg-red-50/60 '>
             <TextField
               variant='outlined'
               label="Username"
@@ -59,9 +63,11 @@ function Login() {
               endIcon={<SendIcon />}
               onClick={handleSubmit}
               disabled={isLoading}
+              color='success'
             >
               Login</Button>
-          </>
+            <Link to="/register" className='text-blue-400 text-right pt-3 hover:underline' >Create a Account Now!</Link>
+          </div>
         )}
 
       </Formik>

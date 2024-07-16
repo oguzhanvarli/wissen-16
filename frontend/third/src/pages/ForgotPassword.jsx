@@ -6,6 +6,7 @@ import { Formik } from 'formik'
 import * as Yup from "yup"
 import bgImage from "../assets/images/login-bg.jpg"
 import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const emailSchema = Yup.object().shape({
   email: Yup.string().required("Email is required!")
@@ -16,8 +17,15 @@ function ForgotPassword() {
 
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
-  const handleSendMail = async ({ email }) => {
-    
+
+  const handleSendMail = async (value) => {
+    await axios.post("http://localhost:9000/user/reset-password-request", value)
+    .then((res) => {
+      if(res.data.status){
+        toast.success(res.data.message)
+      }
+    })
+    .catch(err => console.log(err))
   }
   return (
     <div

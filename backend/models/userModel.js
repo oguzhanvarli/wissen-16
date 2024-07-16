@@ -20,6 +20,14 @@ const userSchema = new mongoose.Schema({
       validator : validator.isEmail,
       message: "Please enter a valid email address"
     }
+  },
+  userPasswordToken : {
+    type: String,
+    default: null
+  },
+  userPasswordTokenTime : {
+    type: Date,
+    default: null
   }
 })
 

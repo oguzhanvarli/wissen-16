@@ -24,7 +24,6 @@ function PasswordReset() {
 
   const location = useLocation()
   const token = location.pathname.split("token=")[1]
-  console.log(token)
 
   const navigate = useNavigate()
 

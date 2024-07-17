@@ -1,8 +1,11 @@
 import React from 'react'
 
-function ProductComponent({product}) {
+function ProductComponent({ product, onClick }) {
+  
   return (
-    <div className='w-full max-w-sm bg-slate-300 border border-gray-200 rounded-lg shadow'>
+    <div
+      onClick={() => onClick(product)}
+      className='w-full max-w-sm bg-slate-300 border border-gray-200 rounded-lg shadow'>
       <img className='p-8 rounded-t-lg mx-auto max-h-80' src={product.image} alt='product_name' />
       <div className='px-5 pb-5'>
         <div className='flex items-center justify-between'>

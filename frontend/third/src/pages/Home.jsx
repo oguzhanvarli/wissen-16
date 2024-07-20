@@ -13,9 +13,9 @@ function Home() {
 
   useEffect(() => {
     fetchData()
-  },[])
+  }, [])
 
-  const fetchData = async() => {
+  const fetchData = async () => {
     try {
       // console.log("worked")
       //FETCH İLE GET İŞLEMİ
@@ -41,15 +41,17 @@ function Home() {
 
 
   return (
-    <div className='grid grid-cols-4 gap-5'>
-      {/* <button onClick={fetchData}>Get Data</button> */}
-      {
-        data.map((product, index) => (
-          <ProductComponent product={product} onClick={goToDetail} key={index} />
-        ))
-      }
-  
-    </div>
+    <>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5'>
+        {/* <button onClick={fetchData}>Get Data</button> */}
+        {
+          data.map((product, index) => (
+            <ProductComponent product={product} onClick={goToDetail} key={index} />
+          ))
+        }
+
+      </div>
+    </>
   )
 }
 

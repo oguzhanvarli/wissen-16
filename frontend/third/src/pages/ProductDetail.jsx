@@ -1,9 +1,14 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useLocation, useParams } from 'react-router-dom'
+import { increment } from '../store/features/cartSlice'
+import { toast } from 'react-toastify'
 
 
 function ProductDetail() {
+
+  const dispatch = useDispatch()
 
   //EĞER STATE GÖNDERİMİ YAPIYORSAM LOCATION KULLANMAM GEREKİYOR
   // const data = useLocation()
@@ -30,6 +35,11 @@ function ProductDetail() {
     }
   }
 
+  const addToCart = () => {
+    dispatch(increment(data))
+    toast.success("Product Added", {autoClose: 2000})
+  }
+
   return (
     <div className='grid grid-cols-6 gap-6 mt-10'>
       <div className='col-start-3'>
@@ -40,7 +50,9 @@ function ProductDetail() {
           <p className='text-3xl font-medium'>{data.name}</p>
           <p className='text-4xl font-bold mt-6'>{data.price}$</p>
         </div>
-        <button className='max-w-32 text-white bg-blue-300 hover:bg-blue-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center'>Add To Cart</button>
+        <button 
+        onClick={addToCart}
+        className='max-w-32 text-white bg-blue-300 hover:bg-blue-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center'>Add To Cart</button>
       </div>
     </div>
   )

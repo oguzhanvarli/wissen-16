@@ -13,21 +13,29 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { Avatar, Button } from '@mui/material';
+import { userLogout } from '../store/features/userSlice';
 
 export default function Navbar() {
 
-
-  const {value} = useSelector(state => state.cart)
+  const { value } = useSelector(state => state.cart)
+  const { isUser, username } = useSelector(state => state.user)
   const navigate = useNavigate()
-
+  const dispatch = useDispatch()
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+
+  const handleLogout = () => {
+    dispatch(userLogout())
+    handleMenuClose()
+  }
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -64,7 +72,7 @@ export default function Navbar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleLogout}>Logout</MenuItem>
     </Menu>
   );
 
@@ -94,49 +102,47 @@ export default function Navbar() {
           onClick={() => navigate("/cart-detail")}
         >
           <Badge badgeContent={value} color="error">
-            <ShoppingCartOutlinedIcon/>
+            <ShoppingCartOutlinedIcon />
           </Badge>
         </IconButton>
         <p>Carts</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
+        {!isUser ?
+          <Button size='small' color='inherit' variant='outlined'>
+            <Link to={"/login"}>Login</Link>
+          </Button> :
+          <IconButton
+            size="large"
+            edge="end"
+            aria-label="account of current user"
+            aria-controls={menuId}
+            aria-haspopup="true"
+            onClick={handleProfileMenuOpen}
+            color="inherit"
+          >
+            <Avatar>{username.charAt(0)}</Avatar>
+          </IconButton>
+        }
       </MenuItem>
     </Menu>
   );
 
   return (
-    <Box sx={{ flexGrow: 1, mb: 3}}>
+    <Box sx={{ flexGrow: 1, mb: 3 }}>
       <AppBar position="static" color='primary'>
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
+
           <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            MUI
+            <Link to={"/"}>Wissen</Link>
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' }}}>
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton
               size="large"
               aria-label="show 0 new notifications"
@@ -144,20 +150,25 @@ export default function Navbar() {
               onClick={() => navigate("/cart-detail")}
             >
               <Badge badgeContent={value} color="error">
-                <ShoppingCartOutlinedIcon/>
+                <ShoppingCartOutlinedIcon />
               </Badge>
             </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
+            {!isUser ?
+              <Button size='small' color='inherit' variant='outlined'>
+                <Link to={"/login"}>Login</Link>
+              </Button> :
+              <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <Avatar>{username.charAt(0).toUpperCase()}</Avatar>
+              </IconButton>
+            }
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton

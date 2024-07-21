@@ -7,6 +7,8 @@ import * as Yup from "yup"
 import bgImage from "../assets/images/login-bg.jpg"
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { useDispatch } from 'react-redux'
+import { userLogin } from '../store/features/userSlice'
 
 const loginSchema = Yup.object().shape({
   username: Yup.string().required("Username is required!")
@@ -19,12 +21,14 @@ function Login() {
 
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handleLogin = async (value) => {
     await axios.post("http://localhost:9000/user/login", value)
       .then(res => {
         if (res.data.status) {
           toast.success(res.data.message)
+          dispatch(userLogin(res.data.user))
           navigate("/")
         }
       })
@@ -43,7 +47,7 @@ function Login() {
       style={{ backgroundImage: `url(${bgImage})`, backgroundSize: "cover" }}
       className="flex flex-col justify-center items-center h-[100vh]">
       <Formik
-        initialValues={{ username: "", password: "" }}
+        initialValues={{ username: "oguzhan3", password: "oguzhan3" }}
         onSubmit={(values) => handleLogin(values)}
         validationSchema={loginSchema}
       >

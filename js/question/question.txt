@@ -1,0 +1,5 @@
+10 elemanlı bir dizi olsun (1 ile 100 arasında)
+Bunlar bir liste halinde ekrana bastırılacak
+50 ve üstü olanlar başarılı diğerleri başarısız
+Başarılı olanlara css ile yeşil color verilecek
+Başarısız olanlara css ile red color verilecek

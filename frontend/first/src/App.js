@@ -7,6 +7,7 @@ import CounterWithState from "./samples/CounterWithState/CounterWithState"
 import PropSample from "./samples/PropSample"
 import StyleSample from "./samples/StyleSample"
 import UseStateSample from "./samples/UseStateSample"
+import {Main as Main2} from "./samples/memoSample/Main"
 
 
 const App = () => {
@@ -18,8 +19,9 @@ const App = () => {
             {/* <PropSample /> */}
             {/* <UseStateSample /> */}
             {/* <CounterSample /> */}
-            <CounterWithState setDeneme={setDeneme} />
-            <Footer footerText={deneme}/>
+            {/* <CounterWithState setDeneme={setDeneme} />
+            <Footer footerText={deneme}/> */}
+            <Main2/>
         </>
     )
 }

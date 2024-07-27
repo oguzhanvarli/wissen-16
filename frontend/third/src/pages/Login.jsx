@@ -9,6 +9,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useDispatch } from 'react-redux'
 import { userLogin } from '../store/features/userSlice'
+import sha256 from 'crypto-js/sha256';
+import { HmacSHA1 } from 'crypto-js'
+import { hashToken } from '../helpers/utilityFunctions'
 
 const loginSchema = Yup.object().shape({
   username: Yup.string().required("Username is required!")
@@ -29,6 +32,8 @@ function Login() {
         if (res.data.status) {
           toast.success(res.data.message)
           dispatch(userLogin(res.data.user))
+          let token = hashToken(res.data.access_token)
+          localStorage.setItem("access_token", token)
           navigate("/")
         }
       })

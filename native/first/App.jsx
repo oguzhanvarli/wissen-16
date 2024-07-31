@@ -1,17 +1,24 @@
 import { View, Text, Button } from 'react-native'
 import React, { useState } from 'react'
+import CounterSample from './src/samples/CounterSample'
+import FlexSample from './src/samples/FlexSample'
+import FlexSample2 from './src/samples/FlexSample2'
+import Home from './src/screens/Home'
 
 const App = () => {
 
-  const [counter, setCounter] = useState(0)
 
   return (
-    <View>
-      <Text style={{fontSize: 40, color: "#f21212", textAlign: "center"}}>{counter}</Text>
-      <Button title='Azalt' onPress={() => setCounter(counter - 1)} color={"#f99"}></Button>
-      <Button title='Arttır' onPress={() => setCounter(counter + 1)} color={"red"} />
-    </View>
+    <>
+      {/* <CounterSample /> */}
+      {/* <FlexSample /> */}
+      {/* <FlexSample2/> */}
+      <Home/>
+    </>
   )
 }
 
 export default App
+
+
+

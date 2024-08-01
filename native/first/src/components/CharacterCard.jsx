@@ -1,17 +1,34 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
+import { Card } from '@rneui/themed'
+import LinearGradient from 'react-native-linear-gradient'
 
-const CharacterCard = ({item}) => {
+const CharacterCard = ({ item, goToDetail }) => {
   return (
-    <View style={{ margin: 20 }}>
-      <Image source={{ uri: item.image }} width={200} height={200} />
-      <Text>{item.name}</Text>
-      <Text>{item.status}</Text>
-      <Text>{item.species}</Text>
-    </View>
+    <TouchableOpacity onPress={() => goToDetail(item.id)}>
+      <Card containerStyle={styles.cardStyle} >
+        <Card.Title style={styles.cartTextStyle}>{item.name}</Card.Title>
+        <Card.Divider />
+        <Card.Image
+          style={{ height: 350 }}
+          resizeMode='contain'
+          source={{
+            uri: item.image
+          }}
+        />
+      </Card>
+    </TouchableOpacity>
   )
 }
 
 export default CharacterCard
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  cardStyle: {
+    borderRadius: 20
+  },
+  cartTextStyle: {
+    color: "#93291E",
+    fontSize: 18,
+  }
+})

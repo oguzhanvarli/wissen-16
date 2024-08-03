@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import CharacterCard from '../components/CharacterCard'
 import LinearGradient from 'react-native-linear-gradient'
+import { baseService } from '../services/baseService'
 
-const Home = () => {
+const Home = ({navigation}) => {
   const [data, setData] = useState([])
   const [pageNumber, setPageNumber] = useState(1)
   useEffect(() => {
@@ -14,8 +15,8 @@ const Home = () => {
   
   const getData = async () => {
     try {
-      let response = await axios.get("https://rickandmortyapi.com/api/character")
-      setData(response.data.results)
+      let response = await baseService.get("/character")
+      setData(response.results)
     } catch (error) {
       console.log("Get Character Error", error)
     }
@@ -27,14 +28,13 @@ const Home = () => {
   }, [pageNumber])
 
   const getNextPage = async() => {
-    axios.get(`https://rickandmortyapi.com/api/character?page=${pageNumber}`)
-    .then(res => setData([...data, ...res.data.results]))
+    baseService.get(`/character?page=${pageNumber}`)
+    .then(res => setData([...data, ...res.results]))
     .catch(err => console.log("Get Next Page Error", err))
   }
 
   const goToDetail = (id) => {
-    
-    console.log(id)
+    navigation.navigate("CharacterDetail", {userId : id})
   }
 
 

@@ -9,13 +9,13 @@ const loginScheama = Yup.object().shape({
   password: Yup.string().required("Password is required!")
 })
 
-const Login = () => {
+const Login = ({navigation}) => {
   return (
     <View style={styles.container}>
       <ImageBackground style={{flex: 1}} source={require("../assets/images/login-bg.jpg")}>
         <Formik
           initialValues={{ username: "", password: "" }}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={(values) => navigation.navigate("Home")}
           validationSchema={loginScheama}
         >
           {
